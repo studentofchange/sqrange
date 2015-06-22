@@ -1,6 +1,5 @@
 # sqrange.py
-# (c) 2015 by Waiming Mok
-# get stock quotes and other info output to columns
+# get stock quotes and other info, output to columns (currently in 2 rows per quote)
 #
 # uses yahoo_finance.py (https://pypi.python.org/pypi/yahoo-finance/1.1.4)
 #
