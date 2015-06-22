@@ -4,3 +4,19 @@
 #
 # uses yahoo_finance.py (https://pypi.python.org/pypi/yahoo-finance/1.1.4)
 #
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+
+
+
