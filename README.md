@@ -1,4 +1,4 @@
-# sqrange
+# sqrange.py
 # (c) 2015 by Waiming Mok
 # get stock quotes and other info output to columns
 #
