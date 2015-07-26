@@ -26,7 +26,7 @@ def range_show(low, high, value, pattern):
 
 
 def data_show(stocksym, category):
-    YPATTERN = bytearray("|    .    .    .    |")
+    YPATTERN = bytearray(":    .    .    .    :")
     DPATTERN = bytearray("[    .    .    .    ]")
     S = Share(stocksym)
 
@@ -34,14 +34,29 @@ def data_show(stocksym, category):
 
     info = S.get_info()
     info['category'] = category
-    info['price'] = price = float(S.get_price())
-    info['volume'] = volume = float( S.get_volume() )
+    try:
+        info['price'] = price = float(S.get_price())
+    except:
+        info['price'] = price = 0
+        
+    try:
+        info['volume'] = volume = float( S.get_volume() )
+    except:
+        info['volume'] = volume = 0
+
     info['ebitda'] = ebitda = S.get_ebitda()
     info['dividend_share'] = dividend_share = S.get_dividend_share()
-    info['year_low'] = year_low = float(S.get_year_low())
-    info['year_high'] = year_high = float(S.get_year_high())
-    info['days_low'] = days_low = float(S.get_days_low())
-    info['days_high'] = days_high = float(S.get_days_high())
+    try:
+        info['year_low'] = year_low = float(S.get_year_low())
+        info['year_high'] = year_high = float(S.get_year_high())
+        info['days_low'] = days_low = float(S.get_days_low())
+        info['days_high'] = days_high = float(S.get_days_high())
+    except:
+        info['year_low'] = year_low = 0
+        info['year_high'] = year_high = 0
+        info['days_low'] = days_low = 0
+        info['days_high'] = days_high = 0
+
     info['market_cap'] = market_cap = S.get_market_cap()
     info['book_value'] = book_value = S.get_book_value()
     info['earnings_share'] = earnings_share = S.get_earnings_share()
@@ -58,7 +73,6 @@ def data_show(stocksym, category):
          '{:>8s}'.format( ebitda )+ " " + \
          '{:>6s}'.format( dividend_share ) + " " + \
          range_show( year_low, year_high, price, YPATTERN ) + \
-         '\n' + \
          '{:>7s}'.format( market_cap ) + " " + \
          '{:>6s}'.format( book_value ) + " " + \
          '{:>6s}'.format( earnings_share ) + " " + \
@@ -71,7 +85,7 @@ def data_show(stocksym, category):
     return ( info )
 
 
-INFILE = "stocklist2.txt"
+INFILE = "stocklist.txt"
 def main():
 
     category = ""
