@@ -5,6 +5,8 @@
 from yahoo_finance import *
 from math import *
 
+spacing = ", "
+
 
 def range_show(low, high, value, pattern):
     INCREMENTS = 20
@@ -18,16 +20,16 @@ def range_show(low, high, value, pattern):
         relvalue = 10
 
     PATTERN[ relvalue ] = MARKER
-    s = '{:7.2f}'.format(low) + \
-        PATTERN + \
+    s = '{:7.2f}'.format(low) + spacing + \
+        PATTERN + spacing + \
         '{:7.2f}'.format(high)
 
     return( s )
 
 
 def data_show(stocksym, category):
-    YPATTERN = bytearray(":    .    .    .    :")
-    DPATTERN = bytearray("[    .    .    .    ]")
+    YPATTERN = bytearray(":____.____.____.____:")
+    DPATTERN = bytearray("[____.____.____.____]")
     S = Share(stocksym)
 
 #    S.refresh()
@@ -67,19 +69,19 @@ def data_show(stocksym, category):
     info['short_ratio'] = short_ratio = S.get_short_ratio()
 
     info['output'] = output = \
-         '{:6s}'.format( stocksym ) + " " + \
-         '{:7.2f}'.format( price ) + " " + \
-         '{:9,.4e}'.format( volume ) + " " + \
-         '{:>8s}'.format( ebitda )+ " " + \
-         '{:>6s}'.format( dividend_share ) + " " + \
-         range_show( year_low, year_high, price, YPATTERN ) + \
-         '{:>7s}'.format( market_cap ) + " " + \
-         '{:>6s}'.format( book_value ) + " " + \
-         '{:>6s}'.format( earnings_share ) + " " + \
-         '{:>6s}'.format( price_earnings_ratio ) + " " + \
-         '{:>6s}'.format( price_earnings_growth_ratio ) + " " + \
-         '{:>5s}'.format( short_ratio ) + " " + \
-         range_show( days_low, days_high, price, DPATTERN ) + " " + \
+         '{:6s}'.format( stocksym ) + spacing + \
+         '{:7.2f}'.format( price ) + spacing + \
+         '{:9,.4e}'.format( volume ) + spacing + \
+         '{:>8s}'.format( ebitda )+ spacing + \
+         '{:>6s}'.format( dividend_share ) + spacing + \
+         range_show( year_low, year_high, price, YPATTERN ) + spacing +\
+         '{:>7s}'.format( market_cap ) + spacing + \
+         '{:>6s}'.format( book_value ) + spacing + \
+         '{:>6s}'.format( earnings_share ) + spacing + \
+         '{:>6s}'.format( price_earnings_ratio ) + spacing + \
+         '{:>6s}'.format( price_earnings_growth_ratio ) + spacing + \
+         '{:>5s}'.format( short_ratio ) + spacing + \
+         range_show( days_low, days_high, price, DPATTERN ) + spacing + \
          '{:>5s}'.format( category )
 
     return ( info )
@@ -98,10 +100,13 @@ def main():
             break
         stock = line[0:-1]
 
-        if stock[0] == ":":
-            category = stock[1:-1]
-            print category
-            continue
+        try:
+            if stock[0] == ":":
+                category = stock[1:-1]
+                print category
+                continue
+        except:
+	    continue
 
         stockinfo = data_show(stock, category)
         stocklist.append( stockinfo )
